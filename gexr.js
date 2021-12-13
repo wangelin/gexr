@@ -21,6 +21,10 @@ if (!fileName || !fs.existsSync(fileName)) {
 	fileName = undefined;
 }
 
+if (fileName) {
+	cases.pop();
+}
+
 const rePair = /^\s*([!x]{0,2})\s*\/(.*)\/([ig]*)\s*(.*?)\s*([\-]?)$/;
 const runs = [];
 if (options.skip) {
@@ -28,6 +32,7 @@ if (options.skip) {
 	for (const c of cases) {
 		const result = rePair.exec(c);
 		if (!result) {
+			console.log(cases, fileName);
 			panic(`Invalid case: ${c}`);
 		}
 		let [, saction, sre, smod, sout] = result;
